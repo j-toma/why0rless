@@ -1,0 +1,37 @@
+{% if course_list %}
+    <ul>
+    {% for course in course_list %}
+        <li><a href="/school/{{ course.id }}/">{{ course.course_title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No courses are available.</p>
+{% endif %}
+
+{% if student_list %}
+    <ul>
+    {% for student in student_list %}
+        <li><a href="/school/{{ student.id }}/">{{ student.english_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No students are available.</p>
+{
+{% if teacher_list %}
+    <ul>
+    {% for teacher in teacher_list %}
+        <li><a href="/school/{{ teacher.id }}/">{{ teacher.english_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No teachers are available.</p>
+{
+{% if homework_list %}
+    <ul>
+    {% for homework in homework_list %}
+        <li><a href="/school/{{ homework.id }}/">{{ homework.description }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No homework is available.</p>
+{

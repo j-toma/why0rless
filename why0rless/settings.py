@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = ')adx4&69r$xf-+1s!pe5&romp5si12m)7$p_s@ai7@+)^%j_$6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['45.120.149.62','why0rless.com','www.why0rless.com']
 
@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['45.120.149.62','why0rless.com','www.why0rless.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'school.apps.SchoolConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
