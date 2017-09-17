@@ -16,7 +16,8 @@
     </ul>
 {% else %}
     <p>No students are available.</p>
-{
+{% endif %}
+
 {% if teacher_list %}
     <ul>
     {% for teacher in teacher_list %}
@@ -25,7 +26,8 @@
     </ul>
 {% else %}
     <p>No teachers are available.</p>
-{
+{% endif %}
+
 {% if homework_list %}
     <ul>
     {% for homework in homework_list %}
@@ -34,4 +36,4 @@
     </ul>
 {% else %}
     <p>No homework is available.</p>
-{
+{% endif %}
