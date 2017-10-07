@@ -1,0 +1,6 @@
+<form action="" method="POST">
+    {% csrf_token %}
+    <div>{{ attendance.session }}--{{ attendance.student }}</div>
+    {{ form }}
+    <input type="submit" value="Submit"/> 
+</form>

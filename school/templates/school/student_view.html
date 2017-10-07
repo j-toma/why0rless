@@ -1,0 +1,23 @@
+{% extends 'school/base.html' %}
+
+{% block pagecontent %}
+<h1>{{ student.english_name }}</h1>
+<h4>Courses:</h4>
+<ul>
+{% for course in student.courses.all %}
+  <li><a href="{% url 'course_view' course.id %}">{{ course.course_title }}</a></li>
+  <a>Homework:</a>
+  <ul>
+  {% for homework in course.homework_set.all %}
+    <li>Week {{ homework.session.week }} -- <a href="{% url 'homework_view' homework.id %}">{{ homework.description }}</a></li>
+  {% endfor %}
+  </ul>
+  <a>Vocabulary:</a>
+  <ul>
+  {% for vocabulary in course.vocabulary_set.all %}
+    <li><a href="{% url 'vocabulary_view' vocabulary.id %}">{{ vocabulary.word }}</a></li>
+  {% endfor %}
+  </ul>
+{% endfor %}
+</ul>
+{% endblock %}

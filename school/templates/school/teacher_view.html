@@ -1,0 +1,7 @@
+<h1>{{ teacher.english_name }}</h1>
+<h6>Courses:</h6>
+<ul>
+{% for course in teacher.course_set.all %}
+  <li><a href="{% url 'course_view' course.id %}">{{ course.title }}</a></li>
+{% endfor %}
+</ul>

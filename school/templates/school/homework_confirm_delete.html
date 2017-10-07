@@ -1,0 +1,14 @@
+{% extends "school/base.html" %}
+
+{% block pagecontent %}
+
+<h1>Delete Homework</h1>
+
+<p>Are you sure you want to delete this {{ homework.course }} homework assignment?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" action="" value="Yes, delete." />
+</form>
+
+{% endblock %}

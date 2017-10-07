@@ -1,0 +1,33 @@
+<h1>Session</h1>
+<h4>Course: {{ session.course }} </h4> 
+<h4>Day: {{ session.day }}</h4>
+<h4>Week: {{ session.week }}</h4>
+<h4>Content:</h4>
+  <p>{{ session.content.lesson_plan }}</p>
+<h4>Vocabulary:</h4>
+  <ul>
+  {% for vocabulary in session.vocabulary.all %}
+    <li><a href="{% url 'vocabulary_view' vocabulary.id %}">{{ vocabulary.word }}</a></li>
+  {% endfor %}
+  </ul>
+<h4>Homework:</h4>
+  <ul>
+  {% for homework in session.homework.all %}
+    <li><a href="{% url 'homework_view' homework.id %}">{{ homework.description }}</a></li>
+  {% endfor %}
+  </ul>
+<h4>Attendance</h4>
+  <ul>
+  {% for attendance in session.attendance_set.all %}
+    <li>
+      <a href="{% url 'attendance_update' attendance.id %}">{{ attendance.student.english_name }}</a>
+      Attended: {{ attendance.attended }} | Late: {{ attendance.was_late }}
+    </li>
+  {% endfor %}
+  </ul>
+
+
+      {% comment %}
+      {% url "attendance_list.html" attendance.id %} 
+
+      {% endcomment %}

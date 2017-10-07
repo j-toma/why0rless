@@ -1,39 +1,81 @@
+{% extends 'school/base.html' %}
+
+{% comment %}
+<div id=jsTest></div>
+
+<script>
+document.getElementById("jsTest").innerHTML = "Hello JS";
+</script>
+{% endcomment %}
+
+{% block pagecontent %}
+<h3>Sessions</h3>
+{% if session_list %}
+    <ul>
+    {% for session in session_list %}
+        <li><a href="{% url 'session_view' session.id %}">{{ session.day }}</a></li>
+    {% endfor %}
+{% else %}
+    <p>No Sessions are available.</p>
+{% endif %} 
+
+<h3>Courses</h3>
 {% if course_list %}
     <ul>
     {% for course in course_list %}
-        <li><a href="/school/{{ course.id }}/">{{ course.course_title }}</a></li>
+        <li><a href="{% url 'course_view' course.id %}">{{ course.course_title }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No courses are available.</p>
 {% endif %}
 
+<h3>Students</h3>
 {% if student_list %}
     <ul>
     {% for student in student_list %}
-        <li><a href="/school/{{ student.id }}/">{{ student.english_name }}</a></li>
+        <li><a href="{% url 'student_view' student.id %}">{{ student.english_name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No students are available.</p>
 {% endif %}
 
+<h3>Teachers</h3>
 {% if teacher_list %}
     <ul>
     {% for teacher in teacher_list %}
-        <li><a href="/school/{{ teacher.id }}/">{{ teacher.english_name }}</a></li>
+        <li><a href="{% url 'teacher_view' teacher.id %}">{{ teacher.english_name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No teachers are available.</p>
 {% endif %}
 
+<h3>Homework</h3>
 {% if homework_list %}
     <ul>
     {% for homework in homework_list %}
-        <li><a href="/school/{{ homework.id }}/">{{ homework.description }}</a></li>
+        <li><a href="{% url 'homework_view' homework.id %}">{{ homework.description }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No homework is available.</p>
 {% endif %}
+
+<h3>Vocabulary</h3>
+{% if vocabulary_list %}
+    <ul>
+    {% for vocabulary in vocabulary_list %}
+        <li><a href="{% url 'vocabulary_view' vocabulary.id %}">{{ vocabulary.word }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No vocabulary is available</p>
+{% endif %}
+
+<a href="{% url 'attendance_list' %}">Attendance</a>
+<a href="{% url 'homework_create' %}">Homework Create</a>
+
+
+{% endblock %}

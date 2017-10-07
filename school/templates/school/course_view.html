@@ -1,0 +1,20 @@
+<h1>{{ course.course_title }}</h1>
+<h4>Teacher: {{ course.teacher }}</h1>
+<h4>Registered Students:</h4>
+<ul>
+{% for student in course.student_set.all %}
+  <li><a href="{% url 'student_view' student.id %}">{{ student.english_name }}</a></li>
+{% endfor %}
+</ul>
+<h4>Homework:</h4>
+<ul>
+{% for homework in course.course_hw.all %}
+  <li><a href="{% url 'homework_view' homework.id %}">{{ homework.description }}</a></li>
+{% endfor %}
+</ul>
+<h4>Vocabulary:</h4>
+<ul>
+{% for vocabulary in course.course_vocab.all %}
+  <li><a href="{% url 'vocabulary_view' vocabulary.id %}">{{ vocabulary.word }}</a></li>
+{% endfor %}
+</ul>

@@ -1,0 +1,20 @@
+{% extends "school/medium_base.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<h2>Here is the attendance: </h2>
+<div>
+  <ul>
+    {% for attendance in object_list %}
+      <li>{{ attendance.student.english_name}} |
+        <a href="{% url 'attendance_update' attendance.pk %}">edit</a>
+        <a href="{% url 'attendance_delete' attendance.pk %}">delete</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <p>
+    <a href="{% url 'attendance_add' %}">add a profile</a>
+  </p>
+</div>
+{% endblock %}
+

@@ -1,0 +1,14 @@
+{% load static %}
+
+<html>
+  <head>
+    <script src="{% static 'school/main.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'school/main.css' %}" type="text/css" />
+  </head>
+  <body>
+    <div class="container">
+      {% block pagecontent %}
+      {% endblock %}
+    </div>
+  </body>
+</html>
