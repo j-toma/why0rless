@@ -1,0 +1,37 @@
+{% extends "school/medium_base.html" %}
+
+{% block content %}
+{% comment %}
+<form method="post" action="">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Create new student" />
+</form>
+{% endcomment %}
+<div class="container1">
+    <h3>Create Student</h3>
+    <div style="width:30%">
+	<form method="post" action="">
+	    {%csrf_token%}
+	    {% for error in form.non_field_errors %}
+	    <div class="form-group has-errors text-danger small">
+		{{error}}
+	    </div>
+	    {% endfor %}
+	    {% for field in form %}
+	    <div class="form-group has-errors text-danger small">
+	       	{{field.errors}}
+	    </div>
+	    <div class="form-group has-errors text-danger small">
+	    </div>
+	    <div class="form-group">
+		{{ field.label }} {{field}}
+	    </div>
+	    {% endfor %}
+	    <input type="submit" class="btn btn-primary" style="width:100%" value="Create Student" />
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

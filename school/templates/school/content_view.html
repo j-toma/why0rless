@@ -1,0 +1,11 @@
+{% extends "school/medium_base.html" %}
+
+{% block content %}
+
+<h1>Content</h1>
+<h3>Session:<a href="{% url 'session_view' content.session.id %}">{{content.session}}</a></h3>
+<h4>{{content.lesson_title}}</h4>
+<p>{{ content }}</p>
+
+
+{% endblock %}

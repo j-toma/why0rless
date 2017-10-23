@@ -1,7 +1,24 @@
+{% extends 'school/medium_base.html' %}
+
+{% block content %}
 <h1>{{ teacher.english_name }}</h1>
 <h6>Courses:</h6>
 <ul>
 {% for course in teacher.course_set.all %}
-  <li><a href="{% url 'course_view' course.id %}">{{ course.title }}</a></li>
+  <li><a href="{% url 'course_view' course.id %}">{{ course.course_title }}</a></li>
 {% endfor %}
 </ul>
+
+<h6>Sessions from the last five days:</h6>
+<ul>
+{% for session in sessions %}
+  <li><a href="{% url 'session_view' session.id %}">{{ session }}</a></li>
+{% endfor %}
+</ul>
+{% comment %}
+{% if perms.school.can_add_session %}
+#here put something just for the teahcer
+{% endif %}
+{% endcomment %}
+{% endblock %}
+

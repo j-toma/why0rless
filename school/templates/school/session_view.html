@@ -1,33 +1,115 @@
-<h1>Session</h1>
-<h4>Course: {{ session.course }} </h4> 
-<h4>Day: {{ session.day }}</h4>
-<h4>Week: {{ session.week }}</h4>
-<h4>Content:</h4>
+{% extends 'school/medium_base.html' %} 
+
+{% block content %}
+<h1>{{session}}</h1>
+<h4>Course: <a href="{% url 'course_view' session.course.id %}">{{ session.course.course_title }}</a></h4> 
+{#<h4>Day: {{ session.day }}</h4>#}
+<h2>Content
+{% ifequal request.user.profile.teacher session.course.teacher %}
+<a href="{% url 'content_create' session.id %}">Create</a>
+{% endifequal %}
+</h2>
+{% comment %}
   <p>{{ session.content.lesson_plan }}</p>
+{% endcomment %}
+  {% for content in session.content.all %}
+        <h4><a href="{% url 'content_view' content.id %}">{{content.lesson_title}}</a></h4>
+        {{ content.lesson_plan }}
+        <p>
+          <a href="{% url 'content_update' content.id %}">Update</a>
+          <a href="{% url 'content_delete' content.id %}">Delete</a>
+        </p>
+  {% endfor %}
+
+
+<h2>Vocabulary
+{% ifequal request.user.profile.teacher session.course.teacher %}
+<a href="{% url 'vocabulary_create' session.id %}">Create</a>
+{% endifequal %}
+</h2>
+{% comment %}
 <h4>Vocabulary:</h4>
   <ul>
   {% for vocabulary in session.vocabulary.all %}
     <li><a href="{% url 'vocabulary_view' vocabulary.id %}">{{ vocabulary.word }}</a></li>
   {% endfor %}
   </ul>
-<h4>Homework:</h4>
+{% endcomment %}
+{% if session.vocabulary.all %}
+<table class="table">
+  <tr>
+    <th>English</th>
+    <th>Chinese</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  {% for vocabulary in session.vocabulary.all %}
+  <tr>
+    <td><a href="{% url 'vocabulary_view' vocabulary.id %}">{{ vocabulary.word }}</a></td> 
+    <td>{{ vocabulary.translation }}</td> 
+    <td><a href="{% url 'vocabulary_update' vocabulary.id %}">Update</a></td>
+    <td><a href="{% url 'vocabulary_delete' vocabulary.id %}">Delete</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+<h2>Homework
+{% ifequal request.user.profile.teacher session.course.teacher %}
+<a href="{% url 'homework_create' session.id %}">Create</a>
+{% endifequal %}
+</h2>
+{% comment %}
+{% endcomment %}
   <ul>
   {% for homework in session.homework.all %}
-    <li><a href="{% url 'homework_view' homework.id %}">{{ homework.description }}</a></li>
+    <li>
+        <p>Description: {{ homework.description }}</p>
+        <p>Due Date: {{ homework.due_date }}</p>
+        <p>          
+          <a href="{% url 'homework_view' homework.id %}">Detail</a>
+          <a href="{% url 'homework_update' homework.id %}">Update</a>
+          <a href="{% url 'homework_delete' homework.id %}">Delete</a>
+        </p>
+    </li>
+
   {% endfor %}
   </ul>
-<h4>Attendance</h4>
-  <ul>
+<h2>Attendance
+{% ifequal request.user.profile.teacher session.course.teacher %}
+<a href="{% url 'session_update' session.pk %}">Edit</a>
+{% endifequal %} 
+</h2>
+{% if session.attendance_set.all %}
+<table class="table">
+  <tr>
+    <th>Student</th>
+    <th>Attended</th>
+    <th>Was Late</th>
+    <th>Note</th>
+  </tr>
   {% for attendance in session.attendance_set.all %}
+  <tr>
+    <td> <a href="{% url 'student_view' attendance.student.id %}">{{ attendance.student }}</a></td>
+    <td> {{ attendance.attended }}</td>
+    <td> {{ attendance.was_late }}</td>
+    <td> {{ attendance.note }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}
+
+      {% comment %}
+  <ul>
+  {% for attendance in session.generate_attendance %}
     <li>
-      <a href="{% url 'attendance_update' attendance.id %}">{{ attendance.student.english_name }}</a>
-      Attended: {{ attendance.attended }} | Late: {{ attendance.was_late }}
+     <a href="{% url 'attendance_update' attendance.id %}">{{ attendance.student.english_name }}</a>
     </li>
   {% endfor %}
   </ul>
-
-
-      {% comment %}
       {% url "attendance_list.html" attendance.id %} 
 
       {% endcomment %}

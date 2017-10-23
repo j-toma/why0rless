@@ -1,0 +1,7 @@
+{% extends "school/medium_base.html" %}
+
+{% block content %}
+<h3>Congratulations</h3>
+<p>You have added user {{ user.username }}.</p>
+<p><a href="{% url 'teacher_create' user.id %}">Proceed to filling out the teacher details</a></p>
+{% endblock %}

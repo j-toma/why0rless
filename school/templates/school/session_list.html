@@ -1,0 +1,22 @@
+{% extends "school/medium_base.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<h2>Here are the Sessions: </h2>
+<div>
+  <ul>
+    {% for session in object_list %}
+      <li><a href="{% url 'session_view' session.pk %}">{{ session }}</a> |
+        <a href="{% url 'session_update' session.pk %}">edit</a>
+        <a href="{% url 'session_delete' session.pk %}">delete</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <p>
+    <a href="{% url 'index' %}">go back to index</a>
+    <a> | </a>
+    <a href="{% url 'session_create' %}">add a session</a>
+  </p>
+</div>
+{% endblock %}
+

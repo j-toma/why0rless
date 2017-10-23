@@ -1,9 +1,31 @@
 .container {
+    width: 65%;
     background: #eac656;
-    margin: 10 10 10 10;
+    margin: auto;
     border: 3px solid black;
+}
+
+#tabs {
+    font-size: 20px;
 }
 
 li a {
     color: green;
 }
+
+.alist {
+    display: inline-block;
+}
+
+.top-bar > div {
+    display: inline-block;
+}
+
+.nav-buttons {
+    font-size: 30px;
+}
+
+.top-bar-logo { 
+    size: 10%;
+}
+ 

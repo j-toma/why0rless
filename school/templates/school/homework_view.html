@@ -1,5 +1,11 @@
+{% extends 'school/medium_base.html' %}
+
+{% block content %}
+
+
 <h1>Homework</h1>
-<h4>Course: {{ homework.course_title }}</h4>
-<h4>Week: {{ homework.session.week }}</h4>
-<h4>Description:</h4>
+<h4>Session: {{ homework.session }}</h4>
+<h4>{{ homework.assignment_name }}</h4>
 <p>{{ homework.description}}</p>
+
+{% endblock %}

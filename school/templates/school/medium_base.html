@@ -1,17 +1,38 @@
+{% load static %}
+
 <html lang="en">
 <head>
     <title>{% block title %}My amazing site{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'school/main.css' %}" type="text/css" />
 </head>
 
 <body>
 <div id="content" class="container">
-    <div class="md-col-10">
-        {% block content %}{% endblock %}
+  <div class="top-bar">
+    <div class="nav-buttons">
+      <a href="{% url 'index' %}">Home</a>
+       | 
+      {% if user.is_authenticated %}
+        User: {{ user.get_username}}
+        <a href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}?next={{request.path}}">Login</a>
+      {% endif %} 
     </div>
-
+    <div class="top-bar-logo">
+      <img src="{% static 'school/logo.png' %}" />
+    </div>
+  </div>
+  <div class="md-col-10">
+    {% block content %}{% endblock %}
+  </div>
 </div>
 </body>
 </html>

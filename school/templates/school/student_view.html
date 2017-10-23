@@ -1,8 +1,64 @@
-{% extends 'school/base.html' %}
+{% extends 'school/medium_base.html' %}
 
-{% block pagecontent %}
+{% block content %}
+
 <h1>{{ student.english_name }}</h1>
+<h3>Class: {{ student.class_group }}</h3>
 <h4>Courses:</h4>
+<ul>
+{% for course in courses %}
+  <li><a href="{% url 'course_view' course.id %}">{{ course.course_title}}</a></li>
+{% endfor %}
+</ul>
+
+<h4>Most Recent Sessions:</h4>
+{% comment %}
+<ul>
+{% for session in sessions %}
+  <li><a href="{% url 'session_view' session.id %}">{{ session }}</a></li>
+{% endfor %}
+</ul>
+
+<h4>Vocabulary:</h4>
+<ul>
+{% for list in vocabulary %}
+  <li>{{ list }}</li>
+{% endfor %}
+<ul>
+{% endcomment %}
+
+<table class="table">
+
+  <tr>
+    <th>Session</th>
+    <th>Content</th>
+    <th>Homework</th>
+    <th>Vocabulary</th>
+  </tr>
+  {% for sess in data %}
+  <tr>
+    {% for val in sess %}
+      {% if val.day %}
+        <td><a href="{% url 'session_view' val.id %}">{{val}}</a></td>
+      {% else %}
+        <td>{{val}}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+  {% endfor %}
+{% comment %}
+  {% for key,values in data.items %}
+  <tr>
+    <th>{{key}}</th>
+    {% for v in values %}
+      <td>{{v}}</td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+{% endcomment %}
+  
+</table> 
+{% comment %}
 <ul>
 {% for course in student.courses.all %}
   <li><a href="{% url 'course_view' course.id %}">{{ course.course_title }}</a></li>
@@ -20,4 +76,5 @@
   </ul>
 {% endfor %}
 </ul>
+{% endcomment %}
 {% endblock %}

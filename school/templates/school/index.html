@@ -1,5 +1,6 @@
-{% extends 'school/base.html' %}
 
+{% extends 'school/medium_base.html' %}
+{% load static %}
 {% comment %}
 <div id=jsTest></div>
 
@@ -8,7 +9,8 @@ document.getElementById("jsTest").innerHTML = "Hello JS";
 </script>
 {% endcomment %}
 
-{% block pagecontent %}
+{% block content %}
+{% comment %}
 <h3>Sessions</h3>
 {% if session_list %}
     <ul>
@@ -18,64 +20,109 @@ document.getElementById("jsTest").innerHTML = "Hello JS";
 {% else %}
     <p>No Sessions are available.</p>
 {% endif %} 
+{% endcomment %}
 
-<h3>Courses</h3>
-{% if course_list %}
-    <ul>
-    {% for course in course_list %}
-        <li><a href="{% url 'course_view' course.id %}">{{ course.course_title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No courses are available.</p>
-{% endif %}
+<div class="container1">
+  <ul id=tabs class="nav nav-tabs">
+{% comment %}
+    <li><a data-toggle="tab" href="#home">Home</a></li>
+{% endcomment %}
+    <li><a data-toggle="tab" href="#courses">Courses</a></li>
+    <li><a data-toggle="tab" href="#students">Students</a></li>
+    <li><a data-toggle="tab" href="#teachers">Teachers</a></li>
+    <li><a data-toggle="tab" href="#staff">Staff</a></li>
+  </ul>
+{% comment %}
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade">
+      <img src="{% static "school/graduation.jpg" %}" alt="Graduation"/>
+    </div>
+  </div>
+{% endcomment %}
+  <div class="tab-content">
+    <div id="courses" class="tab-pane fade">
+      {% if request.user.profile.teacher %}
+        <h3>Your Courses</h3>
+        <ul>
+        {% for course in request.user.profile.teacher.course_set.all %}
+          <li><a href="{% url 'course_view' course.id %}">{{ course.course_title }}</a></li> 
+        {% endfor %}
+        </ul>
+      {% endif%} 
+      {% if request.user.profile.student %}
+        <h3>Your Courses</h3>
+        <ul>
+        {% for course in request.user.profile.student.course_set.all %}
+          <li><a href="{% url 'course_view' course.id %}">{{ course.course_title }}</a></li> 
+        {% endfor %}
+        </ul>
+      {% endif%} 
+      <h3>All Courses</h3>
+      {% if course_list %}
+        <ul>
+        {% for course in course_list %}
+          <li><a href="{% url 'course_view' course.id %}">{{ course.course_title }}</a></li>
+        {% endfor %}
+        </ul>
+      {% else %}
+        <p>No courses are available.</p>
+      {% endif %}
+      {% if request.user.profile.staff.id %}
+        <a href="{% url 'course_create' request.user.profile.staff.id %}">Create Course</a>
+      {% endif %}
+    </div>
 
-<h3>Students</h3>
-{% if student_list %}
-    <ul>
-    {% for student in student_list %}
-        <li><a href="{% url 'student_view' student.id %}">{{ student.english_name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No students are available.</p>
-{% endif %}
+    <div id="students" class="tab-pane fade"> 
+      <h3>Students</h3>
+      {% if student_list %}
+        <ul>
+        {% for student in student_list %}
+          <li><a href="{% url 'student_view' student.id %}">{{ student.english_name }}</a></li>
+        {% endfor %}
+        </ul>
+{% comment %}
+        {% if perms.school.can_add_students %}
+          <a href="{% url 'student_create' %}">Add Student</a>
+        {% endif %}
+{% endcomment %}
+      {% else %}
+        <p>No students are available.</p>
+      {% endif %}
+      {% if request.user.profile.staff.id %}
+        <a href="{% url 'user_create_student' request.user.profile.staff.id %}">Create Student</a>
+      {% endif %}
+    </div>
 
-<h3>Teachers</h3>
-{% if teacher_list %}
-    <ul>
-    {% for teacher in teacher_list %}
+    <div id="teachers" class="tab-pane fade">
+      <h3>Teachers</h3>
+      {% if teacher_list %}
+      <ul>
+        {% for teacher in teacher_list %}
         <li><a href="{% url 'teacher_view' teacher.id %}">{{ teacher.english_name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No teachers are available.</p>
-{% endif %}
+        {% endfor %}
+      </ul>
+      {% else %}
+        <p>No teachers are available.</p>
+      {% endif %}
+      {% if request.user.profile.staff.id %}
+        <a href="{% url 'user_create_teacher' request.user.profile.staff.id %}">Create Teacher</a>
+      {% endif %}
+    </div>
 
-<h3>Homework</h3>
-{% if homework_list %}
-    <ul>
-    {% for homework in homework_list %}
-        <li><a href="{% url 'homework_view' homework.id %}">{{ homework.description }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No homework is available.</p>
-{% endif %}
-
-<h3>Vocabulary</h3>
-{% if vocabulary_list %}
-    <ul>
-    {% for vocabulary in vocabulary_list %}
-        <li><a href="{% url 'vocabulary_view' vocabulary.id %}">{{ vocabulary.word }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No vocabulary is available</p>
-{% endif %}
-
-<a href="{% url 'attendance_list' %}">Attendance</a>
-<a href="{% url 'homework_create' %}">Homework Create</a>
+    <div id="staff" class="tab-pane fade">
+      <h3>Staff</h3>
+      {% if staff_list %}
+      <ul>
+        {% for staff in staff_list %}
+        <li><a href="{% url 'staff_view' staff.id %}">{{ staff.english_name }}</a></li>
+        {% endfor %}
+      </ul>
+      {% else %}
+        <p>No staff members are available.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
 
 
 {% endblock %}

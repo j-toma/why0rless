@@ -1,6 +1,9 @@
+{% extends "school/medium_base.html" %}
+
+{% block content %}
+
 <h1>Vocabulary</h1>
-<h4>Course: {{ vocabulary.fromcourse.course_title }}</h4>
-<h4>Week: {{ vocabulary.session.week }}</h4>
+<h3>Session:<a href="{% url 'session_view' vocabulary.session.id %}">{{ vocabulary.session }}</a></h3>
 <h4>Word:</h4>
 <p>{{ vocabulary.word }}</p>
 <h4>Definition:</h4>
@@ -9,3 +12,5 @@
 <p>{{ vocabulary.translation }}</p>
 <h4>Example:</h4>
 <p>{{ vocabulary.example }}</p>
+
+{% endblock %}

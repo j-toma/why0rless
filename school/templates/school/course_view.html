@@ -1,11 +1,18 @@
+{% extends 'school/medium_base.html' %}
+
+{% block content %}
+
 <h1>{{ course.course_title }}</h1>
 <h4>Teacher: {{ course.teacher }}</h1>
 <h4>Registered Students:</h4>
 <ul>
-{% for student in course.student_set.all %}
+{% for student in registered_students %}
   <li><a href="{% url 'student_view' student.id %}">{{ student.english_name }}</a></li>
 {% endfor %}
 </ul>
+
+
+{% comment %}
 <h4>Homework:</h4>
 <ul>
 {% for homework in course.course_hw.all %}
@@ -18,3 +25,31 @@
   <li><a href="{% url 'vocabulary_view' vocabulary.id %}">{{ vocabulary.word }}</a></li>
 {% endfor %}
 </ul>
+{% endcomment %}
+
+<h2>Sessions:</h2>
+<ul>
+{% for session in sessions %}
+  <li>
+    <a href="{% url 'session_view' session.id %}">{{ session }}</a>
+    <a href="{% url 'session_update' session.id %}">edit</a>
+    <a href="{% url 'session_delete' session.id %}">delete</a>
+  </li>
+{% endfor %}
+</ul>
+
+
+{% ifequal request.user.profile.teacher course.teacher %}
+{{ request.user.profile.teacher }},
+would you like to 
+{% if perms.sessions.add_session %}<a href="{% url 'session_form' course.id %}">add a session</a>?{% endif %}
+
+{% endifequal %}
+
+
+{% endblock %}
+{% comment %}
+{% for session in object_list.filter(course__icontains='Philosophy 1') %}
+<a href="{% url 'session_view' session.pk %}">{{ session }}</a>
+{% endfor %} 
+{% endcomment %}

@@ -55,7 +55,8 @@ ROOT_URLCONF = 'why0rless.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['./templates',],
+        #'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,3 +124,5 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 #STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+#LOGIN_REDIRECT_URL = '/'
