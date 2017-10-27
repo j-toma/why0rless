@@ -55,7 +55,7 @@ ROOT_URLCONF = 'why0rless.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['./templates',],
+        'DIRS': ['school/templates',],
         #'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
