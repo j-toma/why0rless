@@ -45,7 +45,7 @@ class Student(models.Model):
     english_name = models.CharField(max_length=100)
     created_date = models.DateTimeField(default=timezone.now)
     GROUPS = ['G10-C1','G10-C2','G10-C3','Diogo','G11-C1','G11-C2','G11-C3','G12-A','G12-B1','G12-B2','G12-C','G12-D']
-    GROUP_CHOICES = [ (str(i),GROUPS[i]) for i in range(len(GROUPS)) ]
+    GROUP_CHOICES = [ (GROUPS[i],GROUPS[i]) for i in range(len(GROUPS)) ]
     class_group = models.CharField(max_length=40, choices=GROUP_CHOICES,default='G10-C1')
 #    courses = models.ManyToManyField(Course)  
 #    favorite_animal = models.CharField(max_length=100, default='dog')
